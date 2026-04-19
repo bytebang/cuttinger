@@ -2,7 +2,7 @@
 
 Dieses Projekt erzeugt aus einem 3D-Scan (`model.stl`) einen laserschneidbaren Setzkasten als SVG-Teilesatz.
 
-<video src="media/example-output.webm" autoplay loop muted playsinline controls style="max-width: 100%; height: auto;"></video>
+![Beispielausgabe](media/exampleoutput.webm)
 
 Die zentrale Datei ist [cuttinger.py](cuttinger.py).
 
