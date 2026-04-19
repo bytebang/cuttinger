@@ -63,7 +63,7 @@ except Exception:
 # Input STL and transform
 # -----------------------------------------------------------------------------
 stl_file = "model.stl"
-size_scale = 1.05
+size_scale = 1.05 # 5% size increase to give more clearance, and place for a sheet of felt or foam on the divider faces if desired.
 stl_scale = [size_scale, size_scale, size_scale]
 stl_rot_deg = [18.0, 0.0, 0.0]
 stl_pos = [-200.0, 0.0, 300.0]

@@ -2,6 +2,8 @@
 
 Dieses Projekt erzeugt aus einem 3D-Scan (`model.stl`) einen laserschneidbaren Setzkasten als SVG-Teilesatz.
 
+![Beispielausgabe](media/example-output.gif)
+
 Die zentrale Datei ist [cuttinger.py](cuttinger.py).
 
 ## Was [cuttinger.py](cuttinger.py) macht
@@ -32,6 +34,30 @@ Die zentrale Datei ist [cuttinger.py](cuttinger.py).
   - `svgwrite`
   - `matplotlib` (nur fuer [visualize_3d.py](visualize_3d.py))
   - `plotly` (nur fuer [visualize_interactive.py](visualize_interactive.py))
+
+  ## Wie komme ich zu einer 3D-STL-Datei?
+
+  Du brauchst als Input eine `model.stl`. Typische Wege:
+
+  1. Mit 3D-Scanner (am einfachsten)
+    - Objekt scannen (z. B. Creality, EinScan, Revopoint, Artec oder MakerSpace-Scanner).
+    - Mesh im Scanner-Tool bereinigen (Loecher schliessen, Rauschen entfernen, unnötige Teile abschneiden).
+    - Als `STL` exportieren und im Projekt als `model.stl` ablegen.
+
+  2. Mit Handy per Photogrammetrie
+    - Viele Fotos rund ums Objekt machen (gleichmaessiges Licht, wenig Spiegelungen).
+    - In Apps/Tools wie Polycam, RealityScan oder Meshroom zu einem Mesh rechnen.
+    - Mesh bereinigen und als `STL` exportieren.
+
+  3. Aus CAD oder Online-Bibliothek
+    - Eigene CAD-Datei als `STL` exportieren (Fusion, FreeCAD, SolidWorks etc.).
+    - Oder ein bestehendes Modell (z. B. Printables, Thingiverse) laden und als `model.stl` verwenden.
+
+  Wichtige Tipps vor dem Export:
+
+  - Geschlossenes Mesh (watertight) bevorzugen.
+  - Einheit im Blick behalten (meist mm).
+  - Modell moeglichst nahe an Realmass halten; Feintuning geht spaeter ueber `stl_scale` in [cuttinger.py](cuttinger.py).
 
 ## Setup
 
