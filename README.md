@@ -14,12 +14,11 @@ Die zentrale Datei ist [cuttinger.py](cuttinger.py).
 4. Berechnet automatisch Innen- und Aussenmasse des Kastens mit Padding.
 5. Erzeugt Finger-Joint-Panels (Back, Top, Bottom, Left, Right).
 6. Schneidet Divider-Ausschnitte ueber echte Mesh-Slices (Trimesh + Shapely).
-7. Schreibt einzelne SVG-Teile und ein kombiniertes `layout.svg`.
+7. Schreibt einzelne SVG-Teile fuer Panels und Divider.
 
 ## Projektstruktur
 
 - [cuttinger.py](cuttinger.py): Generator fuer alle SVG-Bauteile
-- [visualize_3d.py](visualize_3d.py): statische 3D-Visualisierung
 - [visualize_interactive.py](visualize_interactive.py): interaktive 3D-Visualisierung (Plotly)
 - [model.stl](model.stl): Eingangs-Scan
 - [box_output](box_output): Ausgabeordner mit erzeugten SVGs/Visualisierungen
@@ -32,32 +31,31 @@ Die zentrale Datei ist [cuttinger.py](cuttinger.py).
   - `trimesh`
   - `shapely`
   - `svgwrite`
-  - `matplotlib` (nur fuer [visualize_3d.py](visualize_3d.py))
   - `plotly` (nur fuer [visualize_interactive.py](visualize_interactive.py))
 
-  ## Wie komme ich zu einer 3D-STL-Datei?
+## Wie komme ich zu einer 3D-STL-Datei?
 
-  Du brauchst als Input eine `model.stl`. Typische Wege:
+Du brauchst als Input eine `model.stl`. Typische Wege:
 
-  1. Mit 3D-Scanner (am einfachsten)
-    - Objekt scannen (z. B. Creality, EinScan, Revopoint, Artec oder MakerSpace-Scanner).
-    - Mesh im Scanner-Tool bereinigen (Loecher schliessen, Rauschen entfernen, unnötige Teile abschneiden).
-    - Als `STL` exportieren und im Projekt als `model.stl` ablegen.
+1. Mit 3D-Scanner (am einfachsten)
+   - Objekt scannen (z. B. Creality, EinScan, Revopoint, Artec oder MakerSpace-Scanner).
+   - Mesh im Scanner-Tool bereinigen (Loecher schliessen, Rauschen entfernen, unnötige Teile abschneiden).
+   - Als `STL` exportieren und im Projekt als `model.stl` ablegen.
 
-  2. Mit Handy per Photogrammetrie
-    - Viele Fotos rund ums Objekt machen (gleichmaessiges Licht, wenig Spiegelungen).
-    - In Apps/Tools wie Polycam, RealityScan oder Meshroom zu einem Mesh rechnen.
-    - Mesh bereinigen und als `STL` exportieren.
+2. Mit Handy per Photogrammetrie
+   - Viele Fotos rund ums Objekt machen (gleichmaessiges Licht, wenig Spiegelungen).
+   - In Apps/Tools wie Polycam, RealityScan oder Meshroom zu einem Mesh rechnen.
+   - Mesh bereinigen und als `STL` exportieren.
 
-  3. Aus CAD oder Online-Bibliothek
-    - Eigene CAD-Datei als `STL` exportieren (Fusion, FreeCAD, SolidWorks etc.).
-    - Oder ein bestehendes Modell (z. B. Printables, Thingiverse) laden und als `model.stl` verwenden.
+3. Aus CAD oder Online-Bibliothek
+   - Eigene CAD-Datei als `STL` exportieren (Fusion, FreeCAD, SolidWorks etc.).
+   - Oder ein bestehendes Modell (z. B. Printables, Thingiverse) laden und als `model.stl` verwenden.
 
-  Wichtige Tipps vor dem Export:
+Wichtige Tipps vor dem Export:
 
-  - Geschlossenes Mesh (watertight) bevorzugen.
-  - Einheit im Blick behalten (meist mm).
-  - Modell moeglichst nahe an Realmass halten; Feintuning geht spaeter ueber `stl_scale` in [cuttinger.py](cuttinger.py).
+- Geschlossenes Mesh (watertight) bevorzugen.
+- Einheit im Blick behalten (meist mm).
+- Modell moeglichst nahe an Realmass halten; Feintuning geht spaeter ueber `stl_scale` in [cuttinger.py](cuttinger.py).
 
 ## Setup
 
@@ -66,7 +64,7 @@ Im Projektordner:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install numpy trimesh shapely svgwrite matplotlib plotly
+pip install numpy trimesh shapely svgwrite plotly
 ```
 
 ## Generierung starten
@@ -78,13 +76,13 @@ python cuttinger.py
 Ausgabe landet in [box_output](box_output), u. a.:
 
 - `back.svg`
+- `front.svg`
 - `top.svg`
 - `bottom.svg`
 - `left.svg`
 - `right.svg`
-- `vdiv_*.svg`
-- `hdiv_*.svg`
-- `layout.svg`
+- `div_x_*.svg`
+- `div_y_*.svg`
 
 ## Visualisierung
 
@@ -94,19 +92,11 @@ Interaktiv:
 python visualize_interactive.py
 ```
 
+Hinweis: `python cuttinger.py` startet diese Visualisierung am Ende ebenfalls automatisch.
+
 Erzeugt:
 
 - [box_output/visualization_interactive.html](box_output/visualization_interactive.html)
-
-Statisch:
-
-```powershell
-python visualize_3d.py
-```
-
-Erzeugt:
-
-- [box_output/visualization_3d.png](box_output/visualization_3d.png)
 
 ## Wichtige Parameter in [cuttinger.py](cuttinger.py)
 
@@ -129,10 +119,9 @@ Erzeugt:
 - `finger_target`: Zielbreite fuer Finger-Joints
 - `fit_clearance`: Zusatzspiel fuer Mesh-basierte Ausschnitte
 - `slot_w`, `panel_slot_w`
-- `hdiv_bottom_slot_x_offset`
 - `vdiv_panel_slot_x_offset`
 
-Hinweis: Die beiden `*_offset`-Werte sind bewusst als Feintuning-Parameter vorhanden, falls CAD-/SVG-Koordinaten und reale Montage leicht abweichen.
+Hinweis: `vdiv_panel_slot_x_offset` ist als Feintuning-Parameter vorhanden, falls CAD-/SVG-Koordinaten und reale Montage leicht abweichen.
 
 ### Slice-Qualitaet
 
@@ -146,7 +135,7 @@ Hinweis: Die beiden `*_offset`-Werte sind bewusst als Feintuning-Parameter vorha
 2. In [cuttinger.py](cuttinger.py) `stl_*`-Transform einstellen.
 3. `pad_*`, `cells_*`, `mat`, `kerf` setzen.
 4. `python cuttinger.py` ausfuehren.
-5. Teile in [box_output](box_output) pruefen (`top/bottom/left/right`, `vdiv_*`, `hdiv_*`).
+5. Teile in [box_output](box_output) pruefen (`front/back/top/bottom/left/right`, `div_x_*`, `div_y_*`).
 6. `python visualize_interactive.py` zur 3D-Passformkontrolle ausfuehren.
 7. Falls noetig Offsets/Passung anpassen und erneut generieren.
 
