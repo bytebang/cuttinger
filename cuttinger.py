@@ -63,7 +63,7 @@ except Exception:
 # Input STL and transform
 # -----------------------------------------------------------------------------
 stl_file = "model.stl"
-size_scale = 1.05 # 5% size increase to give more clearance, and place for a sheet of felt or foam on the divider faces if desired.
+size_scale = 0.3 # 5% size increase to give more clearance, and place for a sheet of felt or foam on the divider faces if desired.
 stl_scale = [size_scale, size_scale, size_scale]
 stl_rot_deg = [18.0, 0.0, 0.0]
 stl_pos = [-200.0, 0.0, 300.0]
@@ -1150,7 +1150,7 @@ OUTER_PANEL_SPECS = {
     "back":   (inner_w, outer_h, "flat", "female", "male", "male"),
     "front":  (inner_w, outer_h, "flat", "female", "male", "male"),
     "top":    (inner_w, inner_d, "flat", "flat", "flat", "flat"),
-    "bottom": (outer_w, outer_d - mat, "male", "flat", "flat", "flat"),
+    "bottom": (outer_w, outer_d - mat, "male", "male", "flat", "flat"),
     "left":   (side_wall_w, outer_h, "flat", "flat", "female", "female"),
     "right":  (side_wall_w, outer_h, "flat", "flat", "female", "female"),
 }
