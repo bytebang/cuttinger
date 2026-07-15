@@ -64,7 +64,7 @@ Im Projektordner:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install numpy trimesh shapely svgwrite plotly
+pip install numpy trimesh shapely svgwrite plotly scipy networkx
 ```
 
 ## Generierung starten
